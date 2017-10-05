@@ -28,7 +28,7 @@ public class TopUp extends Fragment{
         topupBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                String pin = topuppin.getText().toString();
+                String pin = topuppin.getText().toString().trim();
                 if(pin.length()==14 && pin.matches("[0-9]+")) {
                     String diallerNum = "*102*" + pin + Uri.encode("#");
                     Intent intent = new Intent(Intent.ACTION_CALL);

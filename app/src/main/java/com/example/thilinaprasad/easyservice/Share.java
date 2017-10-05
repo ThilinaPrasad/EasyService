@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -40,8 +41,8 @@ public class Share extends Fragment {
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                num = shareNum.getText().toString();
-                amount = shareAmount.getText().toString();
+                num = shareNum.getText().toString().trim();
+                amount = shareAmount.getText().toString().trim();
                 boolean numCheck = false;
                 boolean amountCheck = false;
                 if (num.length() == 10 && num.matches("[0-9]+")) {
@@ -106,6 +107,11 @@ public class Share extends Fragment {
 
                 String number =       cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 String name =       cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                number = number.replace("(","");
+                number = number.replace(")","");
+                number = number.replace("-","");
+                number = number.replace(" ","");
+
                 contactName.setText(name);
                 shareNum.setText(number);
                 //contactEmail.setText(email);
